@@ -2,9 +2,9 @@
   "name": "back-end-aletarecife",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/server.ts"
   },
   "keywords": [],
   "author": "",

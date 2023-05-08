@@ -1,11 +1,5 @@
-import express from "express"
-import cors from 'cors'
-import { rotas } from "./rotas"
-import morgan from "morgan"
+import { app } from "./app"
 
-export const app = express()
-
-app.use(express.json())
-app.use(cors())
-app.use(morgan('dev'))
-app.use(rotas)
+app.listen(3000,()=>{
+    console.log("rodando na porta 3000")
+})

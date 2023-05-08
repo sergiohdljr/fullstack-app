@@ -1,4 +1,3 @@
-// conexões
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,9 +7,12 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-// Tabelas Banco de dados 
-
-model user {
-  id   String @id @default(uuid())
-  nome String
+model Usuarios {
+  id        String @id @default(uuid())
+  nome      String
+  email     String @unique
+  age       Int
+  gender    String
+  cpf       String
+  telephone String
 }
