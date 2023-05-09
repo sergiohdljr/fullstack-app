@@ -34,7 +34,7 @@ rotas.post('/create', async (req, res) => {
 rotas.delete('/delete/:id', async (req, res) => {
     try {
         const { id } = req.params
-        const deleteUser = prisma.usuarios.delete({
+        const deleteUser = await prisma.usuarios.delete({
             where: {
                 id: id
             }
@@ -50,10 +50,8 @@ rotas.put('/edit/:id', async (req, res) => {
     try {
         const { id } = req.params
         const { nome, email, age, gender, cpf, telephone } = req.body
-        const EditUser = prisma.usuarios.update({
-            where: {
-                id
-            },
+
+        const EditUser = await prisma.usuarios.update({
             data: {
                 age,
                 cpf,
@@ -61,10 +59,14 @@ rotas.put('/edit/:id', async (req, res) => {
                 nome,
                 telephone,
                 gender
+            },
+            where: {
+                id,
             }
         })
+        res.json(EditUser).status(200)
     } catch (error) {
-
+        res.status(400)
     }
 
 })
