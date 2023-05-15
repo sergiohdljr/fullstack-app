@@ -13,7 +13,6 @@ rotas.get('/', async (req, res) => {
 })
 
 rotas.post('/create', async (req, res) => {
-    try {
         const { nome, email, age, gender, cpf, telephone } = req.body
         const PostUsers = await prisma.usuarios.create({
             data: {
@@ -23,12 +22,7 @@ rotas.post('/create', async (req, res) => {
                 gender,
                 cpf,
                 telephone
-            }
-        })
-        res.json(PostUsers)
-    } catch (error) {
-        res.status(400)
-    }
+            }})
 })
 
 rotas.delete('/delete/:id', async (req, res) => {

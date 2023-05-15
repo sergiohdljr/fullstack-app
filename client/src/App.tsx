@@ -1,56 +1,54 @@
 import axios from "axios"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useEffect, useState } from "react"
+import './App.css'
 
 interface Iuser{
   nome: string,
   email: string,
-  idade:number,
-  genero:"feminino" | "masculino",
+  age:number,
+  gender: "masculino"| "feminino",
   cpf: string,
-  telefone: string
+  telephone: string
 }
 
 function App() {
 
-  const { register,handleSubmit} = useForm<Iuser>()
+  const [usuarios,setUsuarios] = useState<Iuser[]>()
 
-  const handleUserRegister: SubmitHandler<Iuser> =  (usuario) => {
-    axios.get('http://localhost:3000/').then((res)=>console.log(res.data))
-  }
+  useEffect(()=>{
+   axios.get('http://localhost:3000/').then((resposta)=> setUsuarios(resposta.data))
+  },[])
 
   return (
-    <>
-      <div>
-        <form onSubmit={handleSubmit(handleUserRegister)}>
-          <label htmlFor="nome">
-            <span>Nome: </span>
-            <input {...register("nome")} type="text" />
-          </label>
-          <label htmlFor="email">
-            <span>Email: </span>
-            <input {...register("email")} type="email" />
-          </label>
-          <label htmlFor="idade">
-            <span>Idade: </span>
-            <input {...register("idade")} type="number"/>
-          </label>
-          <select {...register("genero")}>
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-          </select>
-          <label htmlFor="cpf">
-            <span>Cpf: </span>
-            <input {...register("cpf")} type="text"/>
-          </label>
-          <label htmlFor="telefone">
-            <span>Telefone: </span>
-            <input {...register("telefone")} type="text"/>
-          </label>
-        </form>
-        <button type="submit">Cadastrar Usuário</button>
-        
+      <div style={{width:'100%'}}>
+       <table>
+  <caption>Usuarios Cadastrados</caption>
+  <thead>
+    <tr>
+      <th scope="col">nome</th>
+      <th scope="col">email</th>
+      <th scope="col">genero</th>
+      <th scope="col">idade</th>
+      <th scope="col">cpf</th>
+      <th scope="col">telefone</th>
+    </tr>
+  </thead>
+  <tbody>
+   {usuarios ? usuarios.map((user)=>{
+    return(
+    <tr key={user.age*2}>
+      <td data-label="Usuário">{user.nome}</td>
+      <td data-label="Email">{user.email}</td>
+      <td data-label="Genêro">{user.gender}</td>
+      <td data-label="Idade">{user.age}</td>
+      <td data-label="CPF">{user.cpf}</td>
+      <td data-label="Telefone">{user.telephone}</td>
+    </tr>
+    )
+   }): <p>Nenhum Usuário Cadastrado</p>}
+  </tbody>
+</table>
       </div>
-    </>
   )
 }
 
